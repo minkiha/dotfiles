@@ -37,6 +37,7 @@ local plugins = {
         "python",
         "sql",
         "yaml",
+        "astro"
       },
     },
   },
@@ -47,7 +48,6 @@ local plugins = {
         "lua-language-server",
         "tailwindcss-language-server",
         "gopls",
-        "golangci-lint-langserver",
         "typescript-language-server",
         "bash-language-server",
         "dockerfile-language-server",
@@ -58,6 +58,8 @@ local plugins = {
         "html-lsp",
         "css-lsp",
         "sqlls",
+        "astro-language-server",
+        "prisma-language-server",
       }
     },
   },
@@ -76,23 +78,60 @@ local plugins = {
     end,
   },
   {
-  "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup()
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  },
-  {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
     config = function()
       require("typescript-tools").setup()
+    end,
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    event = { "InsertEnter", "BufEnter", "BufRead" },
+    cmd = { "Copilot" },
+    config = function()
+      require("copilot").setup {
+        panel = {
+          enabled = true,
+          auto_refresh = true,
+          keymap = {
+            jump_prev = "[[",
+            jump_next = "]]",
+            accept = "<CR>",
+            refresh = "gr",
+            open = "<M-CR>",
+          },
+          layout = {
+            position = "bottom", -- | top | left | right
+            ratio = 0.4,
+          },
+        },
+        suggestion = {
+          enabled = true,
+          auto_accept = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = "<Tab>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
+        },
+        filetypes = {
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ["."] = false,
+        },
+      }
     end,
   },
 }

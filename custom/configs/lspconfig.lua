@@ -6,7 +6,6 @@ local servers = {
   "tsserver",
   "tailwindcss",
   "gopls",
-  "golangci_lint_ls",
   "bashls",
   "dockerls",
   "docker_compose_language_service",
@@ -17,6 +16,8 @@ local servers = {
   "sqlls",
   "lua_ls",
   "pylsp",
+  "astro",
+  "prismals"
 }
 
 for _, lsp in ipairs(servers) do
